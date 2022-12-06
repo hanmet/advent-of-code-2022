@@ -13,17 +13,9 @@ fun main() {
         var sum = 0
         for (rucksack in input) {
             val (left, right) = rucksack.chunked(rucksack.length / 2)
-            loop@ for (leftC in left) {
-                for (rightC in right) {
-                    if (leftC == rightC) {
-                        println("$leftC: ${toPriority(leftC)}")
-                        sum += toPriority(leftC)
-                        break@loop
-                    }
-                }
-            }
-        }
+            sum += left.toSet().intersect(right.toSet()).sumOf { toPriority(it) }
 
+        }
         return sum
     }
 
@@ -31,13 +23,7 @@ fun main() {
         var sum = 0
         val chunks = input.chunked(3)
         for (rucksacks in chunks) {
-            loop@ for (charR1 in rucksacks[0]) {
-                if (rucksacks[1].contains(charR1) && rucksacks[2].contains(charR1)) {
-                    println(charR1)
-                    sum += toPriority(charR1)
-                    break@loop
-                }
-            }
+            sum += rucksacks[0].toSet().intersect(rucksacks[1].toSet()).intersect(rucksacks[2].toSet()).sumOf { toPriority(it) }
         }
         return sum
     }
