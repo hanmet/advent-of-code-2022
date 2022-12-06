@@ -1,16 +1,19 @@
-import java.util.*
-import kotlin.streams.asSequence
-
 fun main() {
 
+    fun getIndex(input: String, windowSize: Int): Int {
+        return input
+            .windowed(windowSize, 1)
+            .map { it.toSet() }
+            .indexOfFirst { it.size == windowSize } + windowSize
+    }
+
     fun part1(input: String): Int {
-        val windowSize = 4
-        return input.chars().asSequence().windowed(windowSize, 1).map { it.toSet() }.indexOfFirst { it.size == windowSize } + windowSize
+        return getIndex(input, 4)
+
     }
 
     fun part2(input: String): Int {
-        val windowSize = 14
-        return input.chars().asSequence().windowed(windowSize, 1).map { it.toSet() }.indexOfFirst { it.size == windowSize } + windowSize
+        return getIndex(input, 14)
     }
 
     // test if implementation meets criteria from the description, like:
